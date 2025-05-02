@@ -1,0 +1,19 @@
+@import "tailwindcss";
+/* @plugin '@tailwindcss/forms'; */
+
+@layer components {
+    .form-label {
+        @apply block mb-1 text-gray-500 dark:text-gray-300 font-medium;
+    }
+    .form-input {
+        @apply block w-full p-2 rounded-md shadow-sm border-gray-300 dark:border-gray-600 text-gray-500 bg-white;
+    }
+
+    .form-input-error {
+        @apply block w-full p-2 rounded-md shadow-sm text-red-500;
+    }
+
+    .btn-primary {
+        @apply bg-indigo-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+    }
+}
