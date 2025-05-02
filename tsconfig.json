@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "resources/js/*"
+      ]
+    },
+    "allowJs": true,
+    "outDir": "public/build",
+    
+  },
+  "include": ["resources/js/**/*.js", "resources/js/**/*.ts", "resources/js/**/*.vue"],
+  "exclude": [
+    "node_modules",
+    "public"
+  ]
+}

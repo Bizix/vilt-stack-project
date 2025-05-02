@@ -1,0 +1,5 @@
+parameters:
+    ignoreErrors:
+        - '#Expected type \'null\\|DebugBar\\\Storage\\\StorageInterface\'. Found \'DebugBar\\\StorageInterface\'\.#'
+        - message: '#Expected type \'null\\|DebugBar\\\Storage\\\StorageInterface\'. Found \'DebugBar\\\StorageInterface\'\.#'
+          path: _ide_helper.php 
