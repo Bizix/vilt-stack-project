@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 HandleInertiaRequests::class,
             ]
         );
+        $middleware->validateCsrfTokens(except: [
+            '/logout'
+            ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
