@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use function PHPSTORM_META\map;
 
 class ListingController extends Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -16,7 +25,7 @@ class ListingController extends Controller
     {
         return inertia('Listing/ListingIndex',
         [
-            'listings' => Listing::all()
+            'listings' => Listing::orderByDesc('created_at')->paginate(10)
         ]
         );
     }
@@ -34,7 +43,7 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        Listing::create(
+        $request->user()->listings()->create(
             $request->validate([
                 'beds' => 'required|integer|min:0|max:20',
                 'baths' => 'required|integer|min:0|max:20',
@@ -55,7 +64,7 @@ class ListingController extends Controller
      * Display the specified resource.
      */
     public function show(Listing $listing)
-    {
+    {        
         return inertia('Listing/ListingShow',
         [
             'listing' => $listing
