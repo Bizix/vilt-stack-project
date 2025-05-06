@@ -21,12 +21,24 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return inertia('Listing/ListingIndex',
-        [
-            'listings' => Listing::orderByDesc('created_at')->paginate(10)
-        ]
+
+        $filters = $request->only([
+            'priceFrom',
+            'priceTo',
+            'beds',
+            'baths',
+            'areaFrom',
+            'areaTo'
+        ]);
+
+        return inertia(
+            'Listing/ListingIndex',
+            [
+                'filters' => $filters,
+                'listings' => Listing::mostRecent()->filter($filters)->paginate(10)->withQueryString()
+            ]
         );
     }
 
@@ -57,18 +69,19 @@ class ListingController extends Controller
         );
 
         return redirect()->route('listing.index')
-        ->with('success', 'Listing was created');
+            ->with('success', 'Listing was created');
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Listing $listing)
-    {        
-        return inertia('Listing/ListingShow',
-        [
-            'listing' => $listing
-        ]
+    {
+        return inertia(
+            'Listing/ListingShow',
+            [
+                'listing' => $listing
+            ]
         );
     }
 
@@ -77,10 +90,11 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
-        return inertia('Listing/ListingEdit',
-        [
-            'listing' => $listing
-        ]
+        return inertia(
+            'Listing/ListingEdit',
+            [
+                'listing' => $listing
+            ]
         );
     }
 
@@ -103,7 +117,7 @@ class ListingController extends Controller
         );
 
         return redirect()->route('listing.index')
-        ->with('success', 'Listing was updated!');
+            ->with('success', 'Listing was updated!');
     }
 
     /**
@@ -114,6 +128,6 @@ class ListingController extends Controller
         $listing->delete();
 
         return redirect()->back()
-        ->with('success', 'Listing was deleted!');
+            ->with('success', 'Listing was deleted!');
     }
 }
